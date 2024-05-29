@@ -1,15 +1,20 @@
+import { useTheme } from '@shopify/restyle';
 import { Stack } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
 
+import { Button } from '~/components/Button';
 import { Container } from '~/components/Container';
-import { ScreenContent } from '~/components/ScreenContent';
+import { Theme } from '~/theme';
 
 export default function Home() {
   return (
     <>
-      <Stack.Screen options={{ title: 'Home' }} />
+      <Stack.Screen
+        options={{
+          title: 'Fields',
+        }}
+      />
       <Container>
-        <ScreenContent path="app/(drawer)/(tabs)/index.tsx" title="Home" />
+        <Button title="Test" />
       </Container>
     </>
   );

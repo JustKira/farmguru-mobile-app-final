@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { ButtonProps, TouchableOpacity } from 'react-native';
 import { Text, makeStyles } from 'theme';
 
 export const Button = forwardRef<TouchableOpacity, ButtonProps>(({ onPress, title }, ref) => {
@@ -7,7 +7,7 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(({ onPress, titl
 
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text variant="body" textAlign="center" color="white" fontWeight="600">
+      <Text variant="body" textAlign="center" color="background" fontWeight="600">
         {title}
       </Text>
     </TouchableOpacity>
@@ -17,18 +17,11 @@ export const Button = forwardRef<TouchableOpacity, ButtonProps>(({ onPress, titl
 const useStyles = makeStyles((theme) => ({
   button: {
     alignItems: 'center',
-    backgroundColor: theme.colors.purple,
-    borderRadius: theme.borderRadii.xl_24,
-    elevation: 5,
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.borderRadii.m_6,
     flexDirection: 'row',
     justifyContent: 'center',
+    width: '100%',
     padding: theme.spacing.m_16,
-    shadowColor: theme.colors.black,
-    shadowOffset: {
-      height: 2,
-      width: 0,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
   },
 }));

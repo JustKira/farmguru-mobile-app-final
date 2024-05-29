@@ -5,18 +5,14 @@ type NamedStyles<T> = {
   [P in keyof T]: ViewStyle | TextStyle | ImageStyle;
 };
 
-const palette = {
-  gray: '#808080',
-  blue: '#007AFF',
-  darkGray: '#38434D',
-  white: '#FFFFFF',
-  black: '#000000',
-  purple: '#6366F1',
-};
-
 const theme = createTheme({
   colors: {
-    ...palette,
+    primary: '#70e000',
+    secondary: '#38b000',
+    muted: '#F4F0EF',
+    border: '#E2E8F0',
+    background: '#F2F2F2',
+    foreground: '#000',
   },
   spacing: {
     xs_4: 4,
@@ -41,6 +37,10 @@ const theme = createTheme({
     large: {
       fontSize: 36,
     },
+    label: {
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
     extra_large: {
       fontSize: 64,
       fontWeight: 'bold',
@@ -50,6 +50,19 @@ const theme = createTheme({
     },
   },
 });
+
+export const darkTheme: Theme = {
+  ...theme,
+  colors: {
+    ...theme.colors,
+    primary: '#9ef01a',
+    secondary: '#38b000',
+    muted: '#1f211f',
+    border: '#5a5c5a',
+    background: '#030802',
+    foreground: '#FFFFFF',
+  },
+};
 
 export const useTheme = () => {
   return useRestyleTheme<Theme>();
