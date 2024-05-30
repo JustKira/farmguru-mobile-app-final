@@ -7,10 +7,13 @@ type NamedStyles<T> = {
 
 const theme = createTheme({
   colors: {
-    primary: '#70e000',
+    primary: '#38b000',
+    primaryLight: 'rgba(56, 176, 0,0.35)',
     secondary: '#38b000',
     muted: '#F4F0EF',
     border: '#E2E8F0',
+    destructive: '#FF0058',
+    destructiveLight: 'rgba(255, 0, 88, 0.35)',
     background: '#F2F2F2',
     foreground: '#000',
   },
@@ -49,6 +52,21 @@ const theme = createTheme({
       // We can define a default text variant here.
     },
   },
+  buttonVariants: {
+    defaults: {
+      backgroundColor: 'muted',
+    },
+    primary: {
+      backgroundColor: 'primary',
+      padding: 'm_16',
+      borderRadius: 'm_6',
+    },
+    secondary: {
+      backgroundColor: 'secondary',
+      padding: 'm_16',
+      borderRadius: 'm_6',
+    },
+  },
 });
 
 export const darkTheme: Theme = {
@@ -57,6 +75,7 @@ export const darkTheme: Theme = {
     ...theme.colors,
     primary: '#9ef01a',
     secondary: '#38b000',
+    destructive: '#FF0058',
     muted: '#1f211f',
     border: '#5a5c5a',
     background: '#030802',

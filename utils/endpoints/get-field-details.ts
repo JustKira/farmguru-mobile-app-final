@@ -1,7 +1,7 @@
-const API_URL = process.env.EXPO_PUBLIC_API;
+import { BACKEND_API } from '..';
 
-export default async function getFieldData(fieldId: string, actionMaker: string) {
-  return fetch(`${API_URL}/fields/mobile/getFieldDetails`, {
+export default async function getFieldDetailsEndpoint(fieldId: string, actionMaker: string) {
+  return fetch(`${BACKEND_API}/fields/mobile/getFieldDetails`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

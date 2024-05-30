@@ -6,10 +6,8 @@ import { Overlay } from 'react-native-maps';
 import FieldBottomSheet from '~/components/FieldBottomSheet';
 import FieldBottomSheetGeneralDetails from '~/components/FieldBottomSheetGeneralDetails';
 import useGetFieldDetailsQuery from '~/lib/query/useGetFieldDetails';
-import { Text } from '~/theme';
-import TrendBlock from '~/components/TrendBlock';
 
-export default function Info() {
+export default function Irrigation() {
   const params = useGlobalSearchParams();
 
   const { data: fieldData } = useGetFieldQuery(params.fid as string);
@@ -20,32 +18,18 @@ export default function Info() {
     <>
       <Stack.Screen
         options={{
-          title: 'Info',
+          title: 'Irrigation',
         }}
       />
       <FieldsSharedMap>
-        {mapData?.defaultOverlayImgPath && fieldData?.bounds ? (
-          <Overlay bounds={fieldData?.bounds} image={{ uri: mapData.defaultOverlayImgPath }} />
+        {mapData?.irrigationOverlayImgPath && fieldData?.bounds ? (
+          <Overlay bounds={fieldData?.bounds} image={{ uri: mapData?.irrigationOverlayImgPath }} />
         ) : (
           <></>
         )}
       </FieldsSharedMap>
       <FieldBottomSheet>
-        <FieldBottomSheetGeneralDetails data={fieldDetails} screen="INFO" />
-
-        <Text color="foreground" variant="title" marginBottom="ml_24">
-          Weekly Changes
-        </Text>
-
-        <TrendBlock label={'Nutrients'} value={Number(fieldDetails?.nutrientsTrend ?? 0)} />
-
-        <TrendBlock label={'Growth'} value={Number(fieldDetails?.growthTrend ?? 0)} />
-
-        <TrendBlock
-          label={'Stress'}
-          value={Number(fieldDetails?.stressTrend ?? 0)}
-          isNegativeNature
-        />
+        <FieldBottomSheetGeneralDetails data={fieldDetails} screen="IRRIGATION" />
       </FieldBottomSheet>
     </>
   );

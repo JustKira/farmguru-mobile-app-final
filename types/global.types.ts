@@ -7,3 +7,5 @@ interface UserData {
 }
 
 type Severity = 'late' | 'moderate' | 'early';
+
+type Screens = 'INFO' | 'CROP' | 'IRRIGATION' | 'SCOUT';

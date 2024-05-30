@@ -4,22 +4,24 @@ import { z } from 'zod';
 
 const fieldsSchema = sqliteTable('fields', {
   id: text('id').primaryKey(),
-  name: text('name'),
+  name: text('name').notNull(),
   farmId: text('farmId'),
-  location: text('location', { mode: 'json' }),
-  position: text('position', { mode: 'json' }),
-  bounds: text('bounds', { mode: 'json' }),
+  location: text('location', { mode: 'json' }).notNull(),
+  position: text('position', { mode: 'json' }).notNull(),
+  bounds: text('bounds', { mode: 'json' }).notNull(),
 });
 
 const insertFieldSchema = createInsertSchema(fieldsSchema, {
-  location: z.array(z.number()).min(2).max(2),
-  bounds: z.array(z.array(z.number()).min(2).max(2)).min(2).max(2),
+  location: z.array(z.tuple([z.number(), z.number()])),
+  bounds: z.tuple([z.tuple([z.number(), z.number()]), z.tuple([z.number(), z.number()])]),
+  position: z.array(z.number()).min(2).max(2),
 });
 interface NewField extends z.infer<typeof insertFieldSchema> {}
 
 const selectFieldSchema = createSelectSchema(fieldsSchema, {
-  location: z.array(z.number()).min(2).max(2),
-  bounds: z.array(z.array(z.number()).min(2).max(2)).min(2).max(2),
+  position: z.array(z.number()).min(2).max(2),
+  location: z.array(z.tuple([z.number(), z.number()])),
+  bounds: z.tuple([z.tuple([z.number(), z.number()]), z.tuple([z.number(), z.number()])]),
 });
 interface Field extends z.infer<typeof selectFieldSchema> {}
 

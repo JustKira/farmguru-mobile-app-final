@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "e362401e-bddc-42c8-b8fd-859e554c09d9",
+  "id": "00bff6df-53e8-4087-af7f-8d38a1227cb0",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "fields": {
@@ -18,7 +18,7 @@
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "farmId": {
@@ -32,21 +32,21 @@
           "name": "location",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "position": {
           "name": "position",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "bounds": {
           "name": "bounds",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         }
       },

@@ -51,10 +51,10 @@ function Wrapper({ children }: { children: React.ReactNode }) {
   }, [migrator]);
 
   return (
-    <ThemeProvider theme={color === 'dark' ? darkTheme : theme}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider theme={color === 'dark' ? darkTheme : theme}>
         <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-      </GestureHandlerRootView>
-    </ThemeProvider>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }

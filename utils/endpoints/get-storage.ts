@@ -1,7 +1,7 @@
-const API_URL = process.env.EXPO_PUBLIC_API;
+import { BACKEND_API } from '..';
 
-export default async function getStorage(key: string, actionMaker: string) {
-  return fetch(`${API_URL}/storage/get`, {
+export default async function getStorageEndpoint(key: string, actionMaker: string) {
+  return fetch(`${BACKEND_API}/storage/get`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

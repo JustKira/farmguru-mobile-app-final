@@ -13,7 +13,9 @@ export default function Account() {
       <Box justifyContent="space-between" flex={1}>
         <Text>{auth.user?.email}</Text>
       </Box>
-      <Button title="Logout" onPress={async () => await auth.signOut()} />
+      <Button onPress={async () => await auth.signOut()} variant="primary">
+        <Text>Sign Out</Text>
+      </Button>
     </Container>
   );
 }

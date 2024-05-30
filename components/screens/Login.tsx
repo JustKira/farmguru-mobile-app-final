@@ -69,7 +69,9 @@ export default function Login() {
             name="password"
           />
         </Box>
-        <Button disabled={loading} onPress={onSubmit} title="Login" />
+        <Button onPress={onSubmit} variant="primary">
+          <Text variant="label">{loading ? 'Loading...' : 'Login'}</Text>
+        </Button>
       </Box>
     </Container>
   );

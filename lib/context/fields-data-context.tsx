@@ -1,13 +1,18 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 import { useAuth } from './auth-context';
 import { useQuery } from '@tanstack/react-query';
 import NetInfo from '@react-native-community/netinfo';
 import getFieldEndpoint from '~/utils/endpoints/get-field';
-import { fieldTransformer } from '../transformers/field';
-import { db } from '../db';
-import { fieldsSchema } from '../db/schemas';
 
-interface FieldsDataContextType {}
+import { db } from '../db';
+import { Field, fieldsSchema } from '../db/schemas';
+import { fieldParser } from '~/utils/parser/field';
+
+interface FieldsDataContextType {
+  success: boolean;
+  failure: boolean;
+  data: Field[] | undefined;
+}
 
 const FieldsDataContext = createContext<FieldsDataContextType | undefined>(undefined);
 
@@ -29,10 +34,11 @@ export const FieldsDataProvider: React.FC<{
 
       const fields = await getFieldEndpoint(user.accountId);
 
-      const transformedFields = fields?.map(fieldTransformer);
+      const parsedFields = fields?.map(fieldParser);
 
-      if (transformedFields && transformedFields.length > 0) {
-        await db.insert(fieldsSchema).values(transformedFields);
+      if (parsedFields && parsedFields.length > 0) {
+        await db.delete(fieldsSchema);
+        return (await db.insert(fieldsSchema).values(parsedFields).returning()) as Field[];
       } else {
         throw new Error('No Fields Found');
       }
@@ -42,8 +48,21 @@ export const FieldsDataProvider: React.FC<{
   if (getFields.isLoading) return loading;
 
   return (
-    <FieldsDataContext.Provider value={undefined}>
+    <FieldsDataContext.Provider
+      value={{
+        success: getFields.isSuccess,
+        failure: getFields.isError,
+        data: getFields.data,
+      }}>
       {getFields.isError ? noFieldsFound() : children}
     </FieldsDataContext.Provider>
   );
+};
+
+export const useFieldsData = () => {
+  const context = useContext(FieldsDataContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };
