@@ -69,8 +69,8 @@ export default function Login() {
             name="password"
           />
         </Box>
-        <Button onPress={onSubmit} variant="primary">
-          <Text variant="label">{loading ? 'Loading...' : 'Login'}</Text>
+        <Button width={'100%'} onPress={onSubmit} variant="primary">
+          <Text>{loading ? 'Loading...' : 'Login'}</Text>
         </Button>
       </Box>
     </Container>

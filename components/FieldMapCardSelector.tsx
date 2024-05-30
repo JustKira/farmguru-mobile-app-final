@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MapView, { PROVIDER_GOOGLE, Polygon } from 'react-native-maps';
 import { Box, Text } from '~/theme';
 import { useFieldsDetail } from '~/lib/context/fields-detail-context';
@@ -29,13 +29,22 @@ const FieldMapCardSelector: React.FC<FieldMapCardProps> = ({
   name,
   onPress,
 }) => {
-  const fieldsDetail = useFieldsDetail();
+  const { getFieldQueryState } = useFieldsDetail();
+
+  useEffect(() => {
+    console.log(`${name} ${getFieldQueryState(index).isFetching}`);
+  }, [index]);
 
   return (
-    <Pressable onPress={onPress}>
+    <Pressable
+      onPress={() => {
+        if (!getFieldQueryState(index).isFetching && onPress) {
+          onPress();
+        }
+      }}>
       <Box height={200} width={'100%'} position="relative" marginBottom="ml_24" padding="sm_12">
         <Box>
-          {fieldsDetail.getIsFieldLoading(index) ? (
+          {getFieldQueryState(index).isFetching ? (
             <Box flexDirection="row">
               <Text variant="title" color="foreground">
                 Loading...
@@ -49,7 +58,7 @@ const FieldMapCardSelector: React.FC<FieldMapCardProps> = ({
             </Box>
           )}
         </Box>
-        <Box opacity={fieldsDetail.getIsFieldLoading(index) ? 0.2 : 1}>
+        <Box opacity={getFieldQueryState(index).isFetching ? 0.2 : 1}>
           <MapView
             initialRegion={initialRegion}
             cacheEnabled={true}

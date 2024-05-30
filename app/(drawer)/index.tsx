@@ -42,7 +42,7 @@ export default function Home() {
               />
             );
           }}
-          estimatedItemSize={200}
+          estimatedItemSize={15}
         />
       </Container>
     </>

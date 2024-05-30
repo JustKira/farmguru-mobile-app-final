@@ -5,6 +5,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import useCacheTracker from '../hooks/use-cache-tracker';
 import LoginEndpoint from '~/utils/endpoints/login';
 import useCacheTracker from '../hooks/use-cache-tracker';
+import { db } from '../db';
+import {
+  fieldsDetailsSchema,
+  fieldsMapInfoSchema,
+  fieldsSchema,
+  fieldsScoutPointsSchema,
+} from '../db/schemas';
 
 export interface AuthContextType {
   user: UserData | null;
@@ -55,6 +62,14 @@ export const AuthProvider: React.FC<{
     onSuccess: async () => {
       setUser(null);
       cache.clearTime();
+
+      await Promise.all([
+        db.delete(fieldsSchema),
+        db.delete(fieldsMapInfoSchema),
+        db.delete(fieldsScoutPointsSchema),
+        db.delete(fieldsDetailsSchema),
+      ]);
+
       queryClient.clear();
     },
   });

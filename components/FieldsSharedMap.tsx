@@ -12,7 +12,7 @@ import { useTheme } from '@shopify/restyle';
 import { Theme } from '~/theme';
 
 interface MapProps extends Partial<MapViewProps> {
-  children?: JSX.Element;
+  children?: React.ReactNode;
 }
 export default function FieldsSharedMap({
   children,

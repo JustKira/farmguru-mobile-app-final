@@ -7,16 +7,22 @@ import { Theme } from '~/theme';
 export default function Dropdown({
   item,
   value,
+  placeholder,
   onValueChange,
+  zIndex,
 }: {
-  item?: { label: string; value: string }[];
+  placeholder?: string;
+  item?: { label: string; value: string; icon?: () => JSX.Element }[];
   value?: string;
   onValueChange: (value: string) => void;
+  zIndex?: number;
 }) {
   const theme = useTheme<Theme>();
   const [open, setOpen] = useState(false);
   return (
     <DropDownPicker
+      zIndex={zIndex}
+      placeholder={placeholder}
       open={open}
       setOpen={setOpen}
       items={item ?? []}
@@ -24,17 +30,21 @@ export default function Dropdown({
       //@ts-ignore
       arrowIconStyle={{ tintColor: theme.colors.foreground }}
       dropDownContainerStyle={{
-        backgroundColor: theme.colors.background,
-        borderWidth: 0,
+        backgroundColor: theme.colors.muted,
+        borderWidth: 1,
+        borderTopWidth: 0,
+        borderColor: theme.colors.border,
       }}
       style={{
-        backgroundColor: theme.colors.background,
+        backgroundColor: theme.colors.muted,
         borderWidth: 1,
-        borderColor: theme.colors.muted,
+        borderColor: theme.colors.border,
       }}
-      setValue={(value) => onValueChange(value as unknown as string)}
+      //@ts-ignore
+      setValue={(value) => onValueChange(value() as unknown as string)}
       selectedItemLabelStyle={{ color: theme.colors.primary }}
       value={value ?? ''}
+      listMode="SCROLLVIEW"
     />
   );
 }

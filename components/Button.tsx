@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import { TouchableOpacity } from 'react-native';
 
 import { createRestyleComponent, createVariant, VariantProps, BoxProps } from '@shopify/restyle';
-import { Text, Theme } from 'theme'; // Ensure Text component is imported from the correct library
+import { Box, Text, Theme } from 'theme'; // Ensure Text component is imported from the correct library
 
 const buttonVariant = createVariant<Theme, 'buttonVariants'>({
   themeKey: 'buttonVariants',
@@ -31,10 +31,12 @@ export const Button = forwardRef<
     }
 >(({ onPress, children, variant, ...restProps }, ref) => {
   return (
-    //@ts-ignore
-    <CustomButton onPress={onPress} ref={ref} variant={variant} {...restProps}>
-      {children}
-    </CustomButton>
+    <Box {...restProps}>
+      {/*@ts-ignore */}
+      <CustomButton ref={ref} onPress={onPress} variant={variant}>
+        <Text>{children}</Text>
+      </CustomButton>
+    </Box>
   );
 });
 

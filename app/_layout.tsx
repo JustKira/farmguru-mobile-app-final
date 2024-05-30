@@ -9,6 +9,7 @@ import migrations from '../drizzle/migrations';
 import { Theme, darkTheme } from '~/theme/theme';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { db } from '~/lib/db';
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
@@ -31,6 +32,38 @@ export default function RootLayout() {
         <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
         {/* <Stack.Screen name="modal" options={{ title: 'Modal', presentation: 'modal' }} /> */}
       </Stack>
+      <Toast
+        config={{
+          success: (props: any) => (
+            <BaseToast
+              {...props}
+              contentContainerStyle={{ backgroundColor: theme.colors.foreground }}
+              text1Style={{
+                color: theme.colors.background,
+              }}
+              text2Style={{
+                color: theme.colors.background,
+              }}
+            />
+          ),
+          /*
+          Overwrite 'error' type,
+          by modifying the existing `ErrorToast` component
+        */
+          error: (props: any) => (
+            <ErrorToast
+              {...props}
+              contentContainerStyle={{ backgroundColor: theme.colors.foreground }}
+              text1Style={{
+                color: theme.colors.background,
+              }}
+              text2Style={{
+                color: theme.colors.background,
+              }}
+            />
+          ),
+        }}
+      />
     </Wrapper>
   );
 }
@@ -58,3 +91,36 @@ function Wrapper({ children }: { children: React.ReactNode }) {
     </GestureHandlerRootView>
   );
 }
+
+const toastConfig = {
+  /*
+    Overwrite 'success' type,
+    by modifying the existing `BaseToast` component
+  */
+  success: (props: any) => (
+    <BaseToast
+      {...props}
+      style={{ borderLeftColor: 'pink' }}
+      contentContainerStyle={{ paddingHorizontal: 15 }}
+      text1Style={{
+        fontSize: 15,
+        fontWeight: '400',
+      }}
+    />
+  ),
+  /*
+    Overwrite 'error' type,
+    by modifying the existing `ErrorToast` component
+  */
+  error: (props: any) => (
+    <ErrorToast
+      {...props}
+      text1Style={{
+        fontSize: 17,
+      }}
+      text2Style={{
+        fontSize: 15,
+      }}
+    />
+  ),
+};

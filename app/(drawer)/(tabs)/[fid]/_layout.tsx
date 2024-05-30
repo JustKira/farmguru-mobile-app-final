@@ -71,10 +71,17 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="scout"
+          name="scout/index"
           options={{
             title: 'Scout',
             tabBarIcon: ({ color }) => <FontAwesome name="search" size={30} color={color} />,
+          }}
+        />
+
+        <Tabs.Screen
+          name="scout/[sid]/index"
+          options={{
+            href: null,
           }}
         />
       </Tabs>

@@ -1,6 +1,6 @@
 import { Ionicons, FontAwesome6 } from '@expo/vector-icons';
 import { useTheme } from '@shopify/restyle';
-import { Link } from 'expo-router';
+import { Link, useGlobalSearchParams } from 'expo-router';
 import { Drawer } from 'expo-router/drawer';
 import * as Progress from 'react-native-progress';
 import { HeaderButton } from '../../components/HeaderButton';

@@ -2,19 +2,25 @@ import { forwardRef } from 'react';
 import { TextInput, TextInputProps } from 'react-native';
 import { makeStyles, useTheme } from '~/theme';
 
-export interface InputsProps extends TextInputProps {}
+export interface InputsProps extends TextInputProps {
+  height?: number;
+}
 
-export const InputField = forwardRef<TextInput, InputsProps>(({ ...rest }, ref) => {
+export const TextArea = forwardRef<TextInput, InputsProps>(({ ...rest }, ref) => {
   const styles = useStyles();
   const theme = useTheme();
   return (
     <TextInput
       style={{
         ...styles.textInput,
-        color: theme.colors.foreground,
+        height: rest.height ?? 52,
         backgroundColor: theme.colors.muted,
-        borderColor: theme.colors.muted,
+        borderColor: theme.colors.border,
+        color: theme.colors.foreground,
+        padding: theme.spacing.m_16,
       }}
+      multiline
+      numberOfLines={5}
       {...rest}
       ref={ref}
     />
@@ -23,11 +29,10 @@ export const InputField = forwardRef<TextInput, InputsProps>(({ ...rest }, ref) 
 
 const useStyles = makeStyles((theme) => ({
   textInput: {
-    height: 52, // Corrected from 'hight' to 'height' and removed quotes for consistency in React Native styling
     width: '100%',
     paddingHorizontal: theme.spacing.sm_12,
     borderWidth: 1,
-
+    textAlignVertical: 'top',
     borderRadius: theme.borderRadii.m_6,
   },
 }));

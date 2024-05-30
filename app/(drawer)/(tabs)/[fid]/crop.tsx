@@ -12,6 +12,7 @@ import Button from '~/components/Button';
 import { Dimensions } from 'react-native';
 import FieldPercentages from '~/components/FieldPercentages';
 import Dropdown from '~/components/Dropdown';
+import { ScrollView } from 'react-native-gesture-handler';
 
 type MapTypes = 'anomaly' | 'nitrogen' | 'growth';
 
@@ -51,7 +52,7 @@ export default function Crop() {
         flexDirection="row"
         backgroundColor="background"
         top={0}
-        zIndex={1}
+        // zIndex={1}
         margin="s_8"
         justifyContent="center"
         alignContent="center"
@@ -63,20 +64,22 @@ export default function Crop() {
       <FieldBottomSheet>
         <FieldBottomSheetGeneralDetails data={fieldDetails} screen="CROP" />
 
-        <Box rowGap="ml_24">
-          <FieldPercentages
-            label="Nutrients"
-            percentages={fieldDetails?.nutrientsPercentage ?? undefined}
-          />
-          <FieldPercentages
-            label="Growth"
-            percentages={fieldDetails?.growthPercentage ?? undefined}
-          />
-          <FieldPercentages
-            label="Stress"
-            percentages={fieldDetails?.stressPercentage ?? undefined}
-          />
-        </Box>
+        <ScrollView>
+          <Box rowGap="ml_24">
+            <FieldPercentages
+              label="Nutrients"
+              percentages={fieldDetails?.nutrientsPercentage ?? undefined}
+            />
+            <FieldPercentages
+              label="Growth"
+              percentages={fieldDetails?.growthPercentage ?? undefined}
+            />
+            <FieldPercentages
+              label="Stress"
+              percentages={fieldDetails?.stressPercentage ?? undefined}
+            />
+          </Box>
+        </ScrollView>
       </FieldBottomSheet>
     </>
   );

@@ -1,7 +1,5 @@
-import { useGlobalSearchParams } from 'expo-router';
 import React, { useMemo } from 'react';
 import { FieldDetails } from '~/lib/db/schemas';
-import useGetFieldDetailsQuery from '~/lib/query/useGetFieldDetails';
 import { Box, Text } from '~/theme';
 import { format } from 'date-fns';
 
@@ -24,8 +22,6 @@ export default function FieldBottomSheetGeneralDetails({
         return data?.lastInfoUpdate;
     }
   }, [screen, data]);
-
-  console.log(lastUpdate);
 
   return (
     <Box flexDirection="row" justifyContent="space-between" rowGap="m_16">
